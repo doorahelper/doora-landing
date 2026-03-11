@@ -1,0 +1,26 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Design reference screenshots (not needed in repo)
+Desktop/
+mobile/
+
+# Claude config
+.claude/
+
+# Prompt file
+claude-code-prompt.md
+
+# Temp server files
+/tmp/
+
+# Debug/intermediate crop files
+assets/*-area*.png
+assets/*-debug*.png
+assets/*-b64.txt
+assets/card-btn-icon.png
+assets/msg-btn-icon.png
+assets/mobile-top.png
+assets/closing-area.png

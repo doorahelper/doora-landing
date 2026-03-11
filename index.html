@@ -1,0 +1,1894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doora — Step-0 for Renters</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #F8F9FB;
+  color: #1A1A2E;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ========== NAV ========== */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: rgba(248, 249, 251, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.nav-house {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-house svg {
+  width: 28px;
+  height: 28px;
+}
+
+.nav-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 20px;
+  background: #007AFF;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: filter 0.2s ease;
+}
+
+.nav-pill:hover {
+  filter: brightness(1.1);
+}
+
+/* ========== HERO ========== */
+.hero-wrapper {
+  padding: 80px 20px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.hero {
+  width: 100%;
+  max-width: 1080px;
+  background: linear-gradient(135deg, rgba(240, 169, 216, 0.06), rgba(187, 154, 228, 0.06), rgba(83, 188, 255, 0.06));
+  border-radius: 20px;
+  padding: 48px 28px 40px;
+  text-align: center;
+}
+
+.wordmark {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.wordmark img {
+  height: 55px;
+  width: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.hero-headlines {
+  position: relative;
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.hero-headline {
+  position: absolute;
+  width: 100%;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #1A1A2E;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.hero-headline.active {
+  opacity: 1;
+}
+
+.hero-headline.inactive {
+  opacity: 0;
+}
+
+.hero-headline u {
+  text-decoration: none;
+  padding-bottom: 6px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 10' preserveAspectRatio='none'%3E%3Cpath d='M2 6 C20 2, 40 2, 60 6 C80 10, 100 10, 118 6' stroke='%237AB4E0' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: bottom left;
+  background-size: 0% 10px;
+}
+
+.hero-headline.active u {
+  animation: drawUnderline 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
+}
+
+.hero-headline.inactive u {
+  animation: none;
+  background-size: 0% 10px;
+}
+
+@keyframes drawUnderline {
+  0% { background-size: 0% 10px; }
+  100% { background-size: 100% 10px; }
+}
+
+.hero-subhead {
+  font-size: 15px;
+  font-weight: 400;
+  color: #6B7280;
+  line-height: 1.6;
+  max-width: 480px;
+  margin: 0 auto 24px;
+}
+
+.hero-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  background: #F3F4F6;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 50px;
+  border: 1px solid #E5E7EB;
+}
+
+/* ========== TWO DOOR CARDS ========== */
+.doors-wrapper {
+  padding: 24px 20px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.doors {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+  max-width: 1080px;
+}
+
+.door-card {
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 18px;
+  padding: 28px 20px 24px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.door-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.door-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.door-icon img {
+  width: 42px;
+  height: auto;
+  object-fit: contain;
+}
+
+.door-card h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1A1A2E;
+  margin-bottom: 6px;
+}
+
+.door-card p {
+  font-size: 14px;
+  color: #6B7280;
+  margin-bottom: 18px;
+  line-height: 1.5;
+}
+
+.btn-blue {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 12px 24px;
+  background: #007AFF;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: filter 0.2s ease;
+}
+
+.btn-blue:hover {
+  filter: brightness(1.1);
+}
+
+.btn-gradient {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 12px 24px;
+  background: linear-gradient(90deg, #F0A9D8, #53BCFF);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: filter 0.2s ease;
+}
+
+.btn-gradient:hover {
+  filter: brightness(1.05);
+}
+
+/* ========== HELPER ZONE (CHAT PREVIEW) ========== */
+.helper-wrapper {
+  padding: 24px 20px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.helper-zone {
+  width: 100%;
+  max-width: 1080px;
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 18px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.helper-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.helper-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.helper-orb {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #F0A9D8, #BB9AE4, #53BCFF);
+}
+
+.helper-header-left span {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1A1A2E;
+}
+
+.helper-chevron {
+  font-size: 20px;
+  color: #9CA3AF;
+}
+
+.chat-body {
+  padding: 20px;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.chat-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 120px;
+}
+
+/* Helper bubble (left) */
+.chat-bubble-helper {
+  align-self: flex-start;
+  background: #F3F4F6;
+  color: #1A1A2E;
+  padding: 10px 16px;
+  border-radius: 18px 18px 18px 4px;
+  font-size: 15px;
+  max-width: 80%;
+  line-height: 1.5;
+}
+
+/* User bubble (right) */
+.chat-bubble-user {
+  align-self: flex-end;
+  background: #007AFF;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 18px 18px 4px 18px;
+  font-size: 15px;
+  max-width: 80%;
+  line-height: 1.5;
+}
+
+.chat-user-area {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.chat-delivered {
+  font-size: 12px;
+  color: #9CA3AF;
+  margin-top: 2px;
+}
+
+/* Typing indicator */
+.typing-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 16px;
+  border-radius: 18px;
+}
+
+.typing-indicator.helper-typing {
+  align-self: flex-start;
+  background: #F3F4F6;
+}
+
+.typing-indicator.user-typing {
+  align-self: flex-end;
+  background: #007AFF;
+}
+
+.typing-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  animation: typingBounce 1.4s infinite;
+}
+
+.helper-typing .typing-dot {
+  background: #9CA3AF;
+}
+
+.user-typing .typing-dot {
+  background: #fff;
+}
+
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingBounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-4px); opacity: 1; }
+}
+
+.chat-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.helper-cta-wrapper {
+  padding: 0 20px 20px;
+}
+
+.helper-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 14px 24px;
+  background: #007AFF;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+
+.helper-cta:hover {
+  filter: brightness(1.1);
+}
+
+/* ========== CARD ZONE ========== */
+.card-zone-wrapper {
+  padding: 24px 20px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.card-zone {
+  width: 100%;
+  max-width: 1080px;
+}
+
+.card-zone-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 16px 24px;
+  background: linear-gradient(90deg, #F0A9D8, #53BCFF);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+  margin-bottom: 16px;
+}
+
+.card-zone-cta:hover {
+  filter: brightness(1.05);
+}
+
+.card-zone-chips {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+.card-zone-body {
+  font-size: 15px;
+  color: #6B7280;
+  line-height: 1.7;
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+.card-preview {
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 28px;
+}
+
+.card-preview-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+.card-preview-item:not(:last-child) {
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.card-preview-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1A1A2E;
+}
+
+.status-provided {
+  font-size: 13px;
+  font-weight: 600;
+  color: #22C55E;
+}
+
+.status-pending {
+  font-size: 13px;
+  font-weight: 600;
+  color: #F97316;
+}
+
+.control-section {
+  margin-bottom: 24px;
+}
+
+.control-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1A1A2E;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.control-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.control-key {
+  font-size: 15px;
+  color: #6B7280;
+}
+
+.control-value {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1A1A2E;
+}
+
+.control-arrow {
+  color: #9CA3AF;
+}
+
+.card-zone-closing {
+  font-size: 15px;
+  color: #1A1A2E;
+  text-align: center;
+  line-height: 1.6;
+  font-weight: 400;
+  padding-top: 8px;
+}
+
+/* ========== CHIPS ROW ========== */
+.chips-row-wrapper {
+  padding: 32px 20px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.chips-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  max-width: 1080px;
+}
+
+/* ========== HOW IT WORKS ========== */
+.how-wrapper {
+  padding: 40px 20px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.how-section {
+  width: 100%;
+  max-width: 1080px;
+  text-align: center;
+}
+
+.how-section h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1A1A2E;
+  margin-bottom: 28px;
+}
+
+.how-steps {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+}
+
+.how-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.how-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 2px solid #E5E7EB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.how-step span {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1A1A2E;
+}
+
+/* ========== SOUND FAMILIAR ========== */
+.familiar-wrapper {
+  padding: 48px 20px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.familiar-section {
+  width: 100%;
+  max-width: 1080px;
+  text-align: center;
+}
+
+.familiar-section h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1A1A2E;
+  margin-bottom: 8px;
+}
+
+.familiar-disclaimer {
+  font-size: 13px;
+  color: #9CA3AF;
+  margin-bottom: 24px;
+}
+
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 4px;
+  cursor: grab;
+}
+
+.carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-card {
+  flex: 0 0 calc(100% - 32px);
+  scroll-snap-align: start;
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 16px;
+  padding: 24px;
+  text-align: left;
+}
+
+.carousel-card h4 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1A1A2E;
+  margin-bottom: 8px;
+}
+
+.carousel-card .card-subtitle {
+  font-size: 14px;
+  color: #6B7280;
+  margin-bottom: 12px;
+}
+
+.carousel-card .card-body {
+  font-size: 14px;
+  color: #6B7280;
+  line-height: 1.6;
+}
+
+.carousel-card .card-expand {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+  color: #9CA3AF;
+  cursor: pointer;
+}
+
+.carousel-dots {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #E5E7EB;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  transition: background 0.2s;
+}
+
+.carousel-dot.active {
+  background: #1A1A2E;
+  width: 20px;
+  border-radius: 4px;
+}
+
+/* ========== STEP-0 MAP ========== */
+.step0-wrapper {
+  padding: 48px 20px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.step0-section {
+  width: 100%;
+  max-width: 1080px;
+  text-align: center;
+}
+
+.step0-header {
+  position: relative;
+  padding: 32px 0;
+  border-top: 1px solid #E5E7EB;
+}
+
+.step0-header::before,
+.step0-header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: #E5E7EB;
+}
+
+.step0-header::before { left: 0; }
+.step0-header::after { right: 0; }
+
+.step0-section h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1A1A2E;
+  margin-bottom: 8px;
+}
+
+.step0-subtitle {
+  font-size: 15px;
+  color: #6B7280;
+  margin-bottom: 0;
+}
+
+.step0-card {
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 16px;
+  padding: 28px 24px;
+  text-align: left;
+}
+
+.step0-card-top {
+  margin-bottom: 16px;
+}
+
+.step0-card-heading {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1A1A2E;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.step0-badge {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #007AFF;
+}
+
+.step0-expand-btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #007AFF;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.step0-expanded {
+  display: none;
+  padding-top: 20px;
+}
+
+.step0-expanded.visible {
+  display: block;
+}
+
+.step0-phase-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #1A1A2E;
+  margin: 24px 0 16px;
+  text-align: left;
+}
+
+.step0-phase-label:first-child {
+  margin-top: 0;
+}
+
+.step0-step {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.step0-step-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.step0-num {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #F3F4F6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1A1A2E;
+  flex-shrink: 0;
+}
+
+.step0-step-info h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1A1A2E;
+  margin-bottom: 2px;
+}
+
+.step0-step-info p {
+  font-size: 13px;
+  color: #6B7280;
+}
+
+.step0-step-badge {
+  font-size: 13px;
+  font-weight: 600;
+  color: #007AFF;
+  background: #EFF6FF;
+  padding: 4px 12px;
+  border-radius: 50px;
+  flex-shrink: 0;
+}
+
+.step0-footer {
+  margin-top: 28px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.step0-footer-item {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: #6B7280;
+  line-height: 1.5;
+}
+
+.step0-footer-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
+/* ========== MANIFESTO ========== */
+.manifesto-wrapper {
+  padding: 56px 20px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.manifesto {
+  width: 100%;
+  max-width: 1080px;
+  text-align: center;
+  position: relative;
+  padding: 0 24px;
+}
+
+.manifesto::before,
+.manifesto::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 40px;
+  width: 1px;
+  background: #E5E7EB;
+}
+
+.manifesto::before { left: 0; }
+.manifesto::after { right: 0; }
+
+.manifesto p {
+  font-size: 17px;
+  font-weight: 600;
+  color: #1A1A2E;
+  line-height: 1.8;
+  margin-bottom: 4px;
+}
+
+.manifesto .manifesto-highlight {
+  color: #007AFF;
+  font-weight: 700;
+  margin-top: 16px;
+}
+
+/* ========== AUTHORITY ========== */
+.authority-wrapper {
+  padding: 56px 20px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.authority {
+  width: 100%;
+  max-width: 1080px;
+  text-align: center;
+}
+
+.authority h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1A1A2E;
+  margin-bottom: 8px;
+}
+
+.authority-sub {
+  font-size: 15px;
+  color: #6B7280;
+  margin-bottom: 28px;
+}
+
+.authority-logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.authority-logo {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1A1A2E;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+}
+
+.authority-logo.desktop-only {
+  display: none;
+}
+
+/* ========== CLOSING CTA ========== */
+.closing-wrapper {
+  padding: 56px 20px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.closing-cta {
+  width: 100%;
+  max-width: 1080px;
+  background: linear-gradient(135deg, rgba(240, 169, 216, 0.08), rgba(187, 154, 228, 0.08), rgba(83, 188, 255, 0.08));
+  border-radius: 24px;
+  padding: 48px 28px;
+  text-align: center;
+}
+
+.closing-cta h2 {
+  font-size: 30px;
+  font-weight: 700;
+  color: #1A1A2E;
+  margin-bottom: 12px;
+}
+
+.closing-cta-sub {
+  font-size: 16px;
+  color: #6B7280;
+  margin-bottom: 28px;
+}
+
+.closing-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.closing-btn-blue {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 16px 24px;
+  background: #007AFF;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+
+.closing-btn-blue:hover {
+  filter: brightness(1.1);
+}
+
+.closing-btn-gradient {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 16px 24px;
+  background: linear-gradient(90deg, #F0A9D8, #53BCFF);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+
+.closing-btn-gradient:hover {
+  filter: brightness(1.05);
+}
+
+.closing-data {
+  font-size: 14px;
+  color: #6B7280;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.closing-free {
+  font-size: 14px;
+  color: #6B7280;
+  line-height: 1.6;
+}
+
+/* ========== FOOTER ========== */
+.footer {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.footer-links a {
+  font-size: 14px;
+  color: #9CA3AF;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: #6B7280;
+}
+
+/* ========== STICKY CTA BAR ========== */
+.sticky-cta {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  padding: 12px 20px;
+  background: rgba(248, 249, 251, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid #E5E7EB;
+  display: flex;
+  justify-content: center;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.sticky-cta.visible {
+  transform: translateY(0);
+}
+
+.sticky-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 600px;
+  padding: 14px 24px;
+  background: #007AFF;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+
+.sticky-cta-btn:hover {
+  filter: brightness(1.1);
+}
+
+/* ========== DESKTOP ========== */
+@media (min-width: 768px) {
+  .nav {
+    padding: 16px 40px;
+  }
+
+  .hero-wrapper {
+    padding: 100px 40px 0;
+  }
+
+  .hero {
+    max-width: 700px;
+    padding: 56px 48px 48px;
+    text-align: left;
+  }
+
+  .wordmark img {
+    height: 72px;
+    margin: 0;
+  }
+
+  .hero-headlines {
+    height: 110px;
+    justify-content: flex-start;
+  }
+
+  .hero-headline {
+    font-size: 42px;
+    text-align: left;
+  }
+
+  .hero-subhead {
+    margin: 0 0 24px;
+    text-align: left;
+    font-size: 16px;
+  }
+
+  .hero-chips {
+    justify-content: flex-start;
+  }
+
+  .chip {
+    font-size: 14px;
+  }
+
+  .doors-wrapper {
+    padding: 32px 40px 0;
+  }
+
+  .doors {
+    max-width: 700px;
+    gap: 20px;
+  }
+
+  .door-card {
+    padding: 32px 28px 28px;
+  }
+
+  .door-card h3 {
+    font-size: 19px;
+  }
+
+  .helper-wrapper {
+    padding: 32px 40px 0;
+  }
+
+  .helper-zone {
+    max-width: 700px;
+  }
+
+  .card-zone-wrapper {
+    padding: 32px 40px 0;
+  }
+
+  .card-zone {
+    max-width: 700px;
+  }
+
+  .chips-row-wrapper {
+    padding: 40px 40px 0;
+  }
+
+  .how-wrapper {
+    padding: 48px 40px 0;
+  }
+
+  .how-section h2 {
+    font-size: 32px;
+  }
+
+  .how-steps {
+    gap: 48px;
+  }
+
+  .familiar-wrapper {
+    padding: 56px 40px 0;
+  }
+
+  .familiar-section h2 {
+    font-size: 32px;
+  }
+
+  .carousel-card {
+    flex: 0 0 calc(33.333% - 12px);
+  }
+
+  .step0-wrapper {
+    padding: 56px 40px 0;
+  }
+
+  .step0-section {
+    max-width: 700px;
+  }
+
+  .step0-section h2 {
+    font-size: 32px;
+  }
+
+  .step0-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .step0-card-heading {
+    margin-bottom: 0;
+    text-align: left;
+  }
+
+  .manifesto-wrapper {
+    padding: 64px 40px 0;
+  }
+
+  .manifesto p {
+    font-size: 19px;
+  }
+
+  .authority-wrapper {
+    padding: 64px 40px 0;
+  }
+
+  .authority h2 {
+    font-size: 32px;
+  }
+
+  .authority-logo {
+    font-size: 15px;
+    padding: 16px 24px;
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+  }
+
+  .authority-logo.desktop-only {
+    display: block;
+  }
+
+  .closing-wrapper {
+    padding: 64px 40px 0;
+  }
+
+  .closing-cta {
+    max-width: 700px;
+    padding: 56px 48px;
+  }
+
+  .closing-cta h2 {
+    font-size: 36px;
+  }
+
+  .closing-buttons {
+    flex-direction: row;
+  }
+
+  .closing-btn-blue,
+  .closing-btn-gradient {
+    flex: 1;
+    width: auto;
+  }
+
+  .footer {
+    padding: 48px 40px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#" class="nav-house" aria-label="Back to top">
+    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="houseGrad" x1="0" y1="0" x2="28" y2="28">
+          <stop offset="0%" stop-color="#F0A9D8"/>
+          <stop offset="50%" stop-color="#BB9AE4"/>
+          <stop offset="100%" stop-color="#53BCFF"/>
+        </linearGradient>
+      </defs>
+      <path d="M14 3L3 12.5V24a1 1 0 001 1h7v-7h6v7h7a1 1 0 001-1V12.5L14 3z" stroke="url(#houseGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
+  </a>
+  <a href="#step0-map" class="nav-pill">Start Step-0</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero-wrapper" id="top">
+  <div class="hero">
+    <div class="wordmark"><img src="assets/doora-wordmark.png" alt="DOORA"></div>
+    <div class="hero-headlines">
+      <h1 class="hero-headline active" id="headline1">Nobody <u>explains</u> renting. We do.</h1>
+      <h1 class="hero-headline inactive" id="headline2">The step <u>before</u> the search.</h1>
+    </div>
+    <p class="hero-subhead">Doora is Step-0: a human beginning that maps your situation and produces a reusable Doora Card.</p>
+    <div class="hero-chips">
+      <span class="chip">Free</span>
+      <span class="chip">Human rental support</span>
+      <span class="chip">Your data, your control</span>
+    </div>
+  </div>
+</section>
+
+<!-- TWO DOOR CARDS -->
+<section class="doors-wrapper" id="doors">
+  <div class="doors">
+    <div class="door-card">
+      <div class="door-icon">
+        <img src="assets/chat-icon.png" alt="">
+      </div>
+      <h3>Free Renting Help</h3>
+      <p>Real person. Real advice. Free.</p>
+      <button class="btn-blue">Message</button>
+    </div>
+    <div class="door-card">
+      <div class="door-icon">
+        <img src="assets/card-icon.png" alt="">
+      </div>
+      <h3>Create Doora Card</h3>
+      <p>Your documents. Your data. Your Card.</p>
+      <button class="btn-gradient">Create</button>
+    </div>
+  </div>
+</section>
+
+<!-- HELPER ZONE (CHAT PREVIEW) -->
+<section class="helper-wrapper">
+  <div class="helper-zone">
+    <div class="helper-header">
+      <div class="helper-header-left">
+        <div class="helper-orb"></div>
+        <span>Doora Helper</span>
+      </div>
+      <span class="helper-chevron">›</span>
+    </div>
+    <div class="chat-body">
+      <div class="chat-messages">
+        <div class="chat-bubble-helper">Hi! Let's map your journey.</div>
+        <div class="chat-user-area">
+          <div id="userMessage" class="chat-bubble-user">I keep getting rejected and I don't know what I'm doing wrong.</div>
+          <div id="userTyping" class="typing-indicator user-typing" style="display:none;">
+            <span class="typing-dot"></span>
+            <span class="typing-dot"></span>
+            <span class="typing-dot"></span>
+          </div>
+          <span class="chat-delivered" id="chatDelivered">Delivered</span>
+        </div>
+      </div>
+      <div class="chat-bottom">
+        <div class="typing-indicator helper-typing">
+          <span class="typing-dot"></span>
+          <span class="typing-dot"></span>
+          <span class="typing-dot"></span>
+        </div>
+      </div>
+    </div>
+    <div class="helper-cta-wrapper">
+      <button class="helper-cta">Message a Helper</button>
+    </div>
+  </div>
+</section>
+
+<!-- CARD ZONE -->
+<section class="card-zone-wrapper">
+  <div class="card-zone">
+    <button class="card-zone-cta">Create Doora Card</button>
+    <div class="card-zone-chips">
+      <span class="chip">You share. You decide.</span>
+      <span class="chip">Take it back anytime</span>
+    </div>
+    <p class="card-zone-body">Your Doora Card belongs to you. You see exactly who's viewed it, when they opened it, and what they looked at. You revoke access the moment you choose — not when they decide to let go.</p>
+    <div class="card-preview">
+      <div class="card-preview-item">
+        <div class="card-preview-left"><span style="color:#22C55E">✓</span> Household</div>
+        <span class="status-provided">Provided</span>
+      </div>
+      <div class="card-preview-item">
+        <div class="card-preview-left"><span style="color:#22C55E">✓</span> Income</div>
+        <span class="status-provided">Provided</span>
+      </div>
+      <div class="card-preview-item">
+        <div class="card-preview-left"><span style="color:#F97316">◷</span> References</div>
+        <span class="status-pending">Pending</span>
+      </div>
+    </div>
+    <div class="control-section">
+      <div class="control-label">CONTROL</div>
+      <div class="control-row">
+        <span class="control-key">Who sees it</span>
+        <span class="control-value"><span class="control-arrow">→</span> You decide</span>
+      </div>
+      <div class="control-row">
+        <span class="control-key">Take it back</span>
+        <span class="control-value"><span class="control-arrow">→</span> Anytime</span>
+      </div>
+      <div class="control-row">
+        <span class="control-key">After you're housed</span>
+        <span class="control-value"><span class="control-arrow">→</span> Wiped. Not sold.</span>
+      </div>
+      <div class="control-row">
+        <span class="control-key">What we keep</span>
+        <span class="control-value"><span class="control-arrow">→</span> Nothing. That's the point.</span>
+      </div>
+    </div>
+    <p class="card-zone-closing">Nobody in renting has ever put you in charge of your own application. We did.</p>
+  </div>
+</section>
+
+<!-- CHIPS ROW -->
+<section class="chips-row-wrapper">
+  <div class="chips-row">
+    <span class="chip">Free</span>
+    <span class="chip">Human-guided</span>
+    <span class="chip">Your data stays yours</span>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-wrapper">
+  <div class="how-section">
+    <h2>How it works</h2>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3C7.03 3 3 6.58 3 11c0 2.5 1.3 4.7 3.4 6.2L5 21l3.5-1.8C9.6 19.7 10.8 20 12 20c5 0 9-3.58 9-8s-4-8-9-8z"/>
+          </svg>
+        </div>
+        <span>Message</span>
+      </div>
+      <div class="how-step">
+        <div class="how-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 2a14.5 14.5 0 000 20M2 12h20"/>
+          </svg>
+        </div>
+        <span>Map</span>
+      </div>
+      <div class="how-step">
+        <div class="how-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="3"/>
+            <line x1="3" y1="9" x2="21" y2="9"/>
+            <line x1="9" y1="14" x2="15" y2="14"/>
+          </svg>
+        </div>
+        <span>Prepare</span>
+      </div>
+      <div class="how-step">
+        <div class="how-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 11l3 3L22 4"/>
+            <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+          </svg>
+        </div>
+        <span>Apply</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOUND FAMILIAR -->
+<section class="familiar-wrapper">
+  <div class="familiar-section">
+    <h2>Sound familiar?</h2>
+    <p class="familiar-disclaimer">Anonymised. Outcomes vary by market and timing.</p>
+    <div class="carousel-container">
+      <div class="carousel-track" id="carouselTrack">
+        <div class="carousel-card">
+          <h4>Arriving from overseas</h4>
+          <p class="card-subtitle">Moving to Sydney with a baby, no local history</p>
+          <p class="card-body">Doora walked us through the system before we even landed — what agents expect, what documents matter, how to approach it cold.</p>
+          <div class="card-expand"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="carousel-card">
+          <h4>Self-employed income</h4>
+          <p class="card-subtitle">I run a small business. My income is real but it's spread across ABNs, invoices, and irregular payments.</p>
+          <p class="card-body">Agents kept skipping over me. Doora helped me put it together so it actually made sense on the first read — no chasing, no explaining.</p>
+          <div class="card-expand"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="carousel-card">
+          <h4>Repeated rejections</h4>
+          <p class="card-subtitle">I'd applied for over a dozen places in three weeks. Most didn't even reply.</p>
+          <p class="card-body">Doora looked at what I was submitting and found gaps I didn't know were there — things agents need that nobody tells you about.</p>
+          <div class="card-expand"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="carousel-card">
+          <h4>Low-pressure mover</h4>
+          <p class="card-subtitle">We weren't desperate. Just moving suburbs in a few weeks.</p>
+          <p class="card-body">But nobody explains how renting actually works — what order to do things, what a strong application looks like. Doora did.</p>
+          <div class="card-expand"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="carousel-card">
+          <h4>Priced out of their own city</h4>
+          <p class="card-subtitle">After the rent went up, we couldn't afford anything within 20 minutes of work.</p>
+          <p class="card-body">Doora helped me figure out what was realistic for my budget, timeline, and what you're up against — then plan around it.</p>
+          <div class="card-expand"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 8l5 5 5-5" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-dots" id="carouselDots"></div>
+  </div>
+</section>
+
+<!-- STEP-0 MAP -->
+<section class="step0-wrapper" id="step0-map">
+  <div class="step0-section">
+    <div class="step0-header">
+      <h2>Step-0 map</h2>
+      <p class="step0-subtitle">The universal sequence before you apply.</p>
+    </div>
+    <div class="step0-card">
+      <div class="step0-card-top">
+        <p class="step0-card-heading">From first message to move-in. This is Step-0.</p>
+        <span class="step0-badge">▸ You are here: Step-0</span>
+      </div>
+      <button class="step0-expand-btn" id="step0Toggle">See full map ›</button>
+      <div class="step0-expanded" id="step0Expanded">
+        <div class="step0-phase-label">PREPARE</div>
+        <div class="step0-step">
+          <div class="step0-step-left">
+            <div class="step0-num">01</div>
+            <div class="step0-step-info"><h4>Understand the system</h4><p>Actors, portals, what's assessed</p></div>
+          </div>
+          <span class="step0-step-badge">Plan</span>
+        </div>
+        <div class="step0-step">
+          <div class="step0-step-left">
+            <div class="step0-num">02</div>
+            <div class="step0-step-info"><h4>Ground yourself</h4><p>They learn your budget, your timeline, and what you're up against — then plan around it.</p></div>
+          </div>
+          <span class="step0-step-badge">Plan</span>
+        </div>
+        <div class="step0-step">
+          <div class="step0-step-left">
+            <div class="step0-num">03</div>
+            <div class="step0-step-info"><h4>Prepare once</h4><p>Documents, privacy, scam safety</p></div>
+          </div>
+          <span class="step0-step-badge">Card</span>
+        </div>
+        <div class="step0-phase-label">ENTER THE MARKET</div>
+        <div class="step0-step">
+          <div class="step0-step-left">
+            <div class="step0-num">04</div>
+            <div class="step0-step-info"><h4>Enter the market safely</h4><p>One Card. Any agent. Any portal. Your control.</p></div>
+          </div>
+          <span class="step0-step-badge">Plan</span>
+        </div>
+        <div class="step0-step">
+          <div class="step0-step-left">
+            <div class="step0-num">05</div>
+            <div class="step0-step-info"><h4>Apply</h4><p>One reusable pack you can send anywhere</p></div>
+          </div>
+          <span class="step0-step-badge">Card</span>
+        </div>
+        <div class="step0-step">
+          <div class="step0-step-left">
+            <div class="step0-num">06</div>
+            <div class="step0-step-info"><h4>Aftermath</h4><p>Lease, bond, condition report, what happens next</p></div>
+          </div>
+          <span class="step0-step-badge">Plan</span>
+        </div>
+        <div class="step0-footer">
+          <div class="step0-footer-item">
+            <span class="step0-footer-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="4" y="2" width="12" height="16" rx="2" stroke="#6B7280" stroke-width="1.5"/><line x1="7" y1="7" x2="13" y2="7" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round"/><line x1="7" y1="10" x2="13" y2="10" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round"/><line x1="7" y1="13" x2="11" y2="13" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+            <span>After one conversation: You'll know what to do, in what order, and why.</span>
+          </div>
+          <div class="step0-footer-item">
+            <span class="step0-footer-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="#6B7280" stroke-width="1.5"/><path d="M10 6v5" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round"/><circle cx="10" cy="14" r="0.8" fill="#6B7280"/></svg></span>
+            <span>Something no renter has ever had — an application that answers to you. <strong>Only you.</strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto-wrapper">
+  <div class="manifesto">
+    <p>Nobody prepared you for renting.</p>
+    <p>Not your school.</p>
+    <p>Not your parents.</p>
+    <p>Not the portals.</p>
+    <p>Not the agents.</p>
+    <p>You were expected to figure it out.</p>
+    <p class="manifesto-highlight">Nobody built anything for the person who actually has to move. We did.</p>
+  </div>
+</section>
+
+<!-- AUTHORITY -->
+<section class="authority-wrapper">
+  <div class="authority">
+    <h2>Connected with the rental ecosystem</h2>
+    <p class="authority-sub">Early conversations and communities.</p>
+    <div class="authority-logos">
+      <div class="authority-logo">REINSW</div>
+      <div class="authority-logo">Laing+Simmons</div>
+      <div class="authority-logo">Women in Real Estate</div>
+      <div class="authority-logo desktop-only">REINSW</div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING CTA -->
+<section class="closing-wrapper" id="closingCta">
+  <div class="closing-cta">
+    <h2>Start Step-0 today.</h2>
+    <p class="closing-cta-sub">Talk first, or build first. Either way, you're ahead of where you were.</p>
+    <div class="closing-buttons">
+      <button class="closing-btn-blue"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0"><path d="M10 2.5C5.86 2.5 2.5 5.48 2.5 9.17c0 2.08 1.08 3.92 2.83 5.13L4.17 17.5l2.92-1.5c.9.33 1.88.5 2.91.5 4.14 0 7.5-2.98 7.5-6.67S14.14 2.5 10 2.5z" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Message a Helper</button>
+      <button class="closing-btn-gradient"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink:0"><rect x="3" y="5" width="14" height="10" rx="2.5" stroke="#fff" stroke-width="1.5"/><line x1="3" y1="9" x2="17" y2="9" stroke="#fff" stroke-width="1.5"/></svg> Create Doora Card</button>
+    </div>
+    <p class="closing-data">Your data stays yours. Doora doesn't copy it, sell it, or keep it after you're done.</p>
+    <p class="closing-free">Free for renters. Backed by the agencies that chose to put renters first.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Contact</a>
+  </div>
+</footer>
+
+<!-- STICKY CTA BAR -->
+<div class="sticky-cta" id="stickyCta">
+  <button class="sticky-cta-btn">Start Step-0</button>
+</div>
+
+<script>
+// Hero headline rotation
+(function() {
+  const h1 = document.getElementById('headline1');
+  const h2 = document.getElementById('headline2');
+  let showing1 = true;
+
+  setInterval(function() {
+    if (showing1) {
+      h1.classList.remove('active');
+      h1.classList.add('inactive');
+      h2.classList.remove('inactive');
+      h2.classList.add('active');
+    } else {
+      h2.classList.remove('active');
+      h2.classList.add('inactive');
+      h1.classList.remove('inactive');
+      h1.classList.add('active');
+    }
+    showing1 = !showing1;
+  }, 4500);
+})();
+
+// Chat message cycling
+(function() {
+  var messages = [
+    "I keep getting rejected and I don\u2019t know what I\u2019m doing wrong.",
+    "We\u2019re moving from Melbourne \u2014 is Sydney really this hard?",
+    "I\u2019m on Centrelink. Do agents even look at my application?",
+    "Single mum, two kids, no lease in my name before.",
+    "My income\u2019s legit but it\u2019s across three ABNs. How do I show it?",
+    "We land in 5 weeks. We have nowhere to stay.",
+    "Our rent just went up 30%. We have to move but where?",
+    "I\u2019ve applied for 9 places this month. Not one callback."
+  ];
+  var idx = 0;
+  var userMsg = document.getElementById('userMessage');
+  var userTyping = document.getElementById('userTyping');
+  var delivered = document.getElementById('chatDelivered');
+
+  function cycle() {
+    // Step 1: Hide message
+    userMsg.style.display = 'none';
+    delivered.style.display = 'none';
+    // Step 2: Show typing indicator
+    userTyping.style.display = 'inline-flex';
+
+    setTimeout(function() {
+      // Step 3: Hide typing, show next message
+      idx = (idx + 1) % messages.length;
+      userTyping.style.display = 'none';
+      userMsg.textContent = messages[idx];
+      userMsg.style.display = 'block';
+      delivered.style.display = 'block';
+
+      // Step 4: Hold, then repeat
+      setTimeout(cycle, 3000);
+    }, 1200);
+  }
+
+  // Initial hold then start cycling
+  setTimeout(cycle, 3000);
+})();
+
+// Carousel
+(function() {
+  var track = document.getElementById('carouselTrack');
+  var dotsContainer = document.getElementById('carouselDots');
+  var cards = track.querySelectorAll('.carousel-card');
+  var numCards = cards.length;
+
+  // Create dots
+  for (var i = 0; i < numCards; i++) {
+    var dot = document.createElement('button');
+    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('data-index', i);
+    dotsContainer.appendChild(dot);
+  }
+
+  var dots = dotsContainer.querySelectorAll('.carousel-dot');
+
+  function updateDots() {
+    var scrollLeft = track.scrollLeft;
+    var cardWidth = cards[0].offsetWidth + 16;
+    var activeIndex = Math.round(scrollLeft / cardWidth);
+    dots.forEach(function(d, i) {
+      d.classList.toggle('active', i === activeIndex);
+    });
+  }
+
+  track.addEventListener('scroll', updateDots);
+
+  dots.forEach(function(dot) {
+    dot.addEventListener('click', function() {
+      var idx = parseInt(this.getAttribute('data-index'));
+      var cardWidth = cards[0].offsetWidth + 16;
+      track.scrollTo({ left: idx * cardWidth, behavior: 'smooth' });
+    });
+  });
+})();
+
+// Step-0 map toggle
+(function() {
+  var btn = document.getElementById('step0Toggle');
+  var expanded = document.getElementById('step0Expanded');
+  var isOpen = false;
+
+  btn.addEventListener('click', function() {
+    isOpen = !isOpen;
+    expanded.classList.toggle('visible', isOpen);
+    btn.textContent = isOpen ? 'Hide map ‹' : 'See full map ›';
+  });
+})();
+
+// Sticky CTA bar
+(function() {
+  var sticky = document.getElementById('stickyCta');
+  var doors = document.getElementById('doors');
+  var closing = document.getElementById('closingCta');
+
+  function checkSticky() {
+    var doorsRect = doors.getBoundingClientRect();
+    var closingRect = closing.getBoundingClientRect();
+    var pastDoors = doorsRect.bottom < 0;
+    var closingVisible = closingRect.top < window.innerHeight;
+    sticky.classList.toggle('visible', pastDoors && !closingVisible);
+  }
+
+  window.addEventListener('scroll', checkSticky, { passive: true });
+  checkSticky();
+})();
+
+// Nav house icon scroll to top
+document.querySelector('.nav-house').addEventListener('click', function(e) {
+  e.preventDefault();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
+
+</body>
+</html>
