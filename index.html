@@ -300,6 +300,7 @@ body {
   border-radius: 18px;
   padding: 0;
   overflow: hidden;
+  height: 266px;
 }
 
 .helper-header {
@@ -340,6 +341,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow: hidden;
 }
 
 .chat-messages {
@@ -1944,10 +1946,10 @@ body {
   var delivered = document.getElementById('chatDelivered');
 
   function cycle() {
-    // Step 1: Hide message
-    userMsg.style.display = 'none';
-    delivered.style.display = 'none';
-    // Step 2: Show typing indicator
+    // Step 1: Hide message visually but keep space
+    userMsg.style.visibility = 'hidden';
+    delivered.style.visibility = 'hidden';
+    // Step 2: Show typing indicator (overlaid)
     userTyping.style.display = 'inline-flex';
 
     setTimeout(function() {
@@ -1955,8 +1957,8 @@ body {
       idx = (idx + 1) % messages.length;
       userTyping.style.display = 'none';
       userMsg.textContent = messages[idx];
-      userMsg.style.display = 'block';
-      delivered.style.display = 'block';
+      userMsg.style.visibility = 'visible';
+      delivered.style.visibility = 'visible';
 
       // Step 4: Hold, then repeat
       setTimeout(cycle, 3000);
