@@ -34,7 +34,7 @@ body {
   left: 0;
   right: 0;
   z-index: 100;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: space-between;
   padding: 10px 20px;
@@ -78,7 +78,7 @@ body {
 
 /* ========== HERO ========== */
 .hero-wrapper {
-  padding: 64px 20px 0;
+  padding: 12px 20px 0;
   display: flex;
   justify-content: center;
 }
@@ -156,6 +156,7 @@ body {
 }
 
 .hero-subhead {
+  display: none;
   font-size: 14px;
   font-weight: 400;
   color: #6B7280;
@@ -1201,11 +1202,16 @@ body {
 /* ========== DESKTOP ========== */
 @media (min-width: 768px) {
   .nav {
+    display: flex;
     padding: 16px 40px;
   }
 
   .hero-wrapper {
     padding: 100px 40px 0;
+  }
+
+  .hero-subhead {
+    display: block;
   }
 
   .hero {
